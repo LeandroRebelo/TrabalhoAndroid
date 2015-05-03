@@ -1,0 +1,41 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="${relativePackage}.${activityClass}" >
+
+    <ListView
+        android:id="@+id/act1_listView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_below="@+id/act1_textView1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="81dp" >
+
+    </ListView>
+
+    <TextView
+        android:id="@+id/act1_textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="22dp"
+        android:layout_marginTop="32dp"
+        android:text="Contatos App, 3 encontrados" />
+
+    <Button
+        android:id="@+id/act1_buttonAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/act1_textView1"
+        android:layout_alignBottom="@+id/act1_textView1"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="18dp"
+        android:text="+" />
+
+</RelativeLayout>
