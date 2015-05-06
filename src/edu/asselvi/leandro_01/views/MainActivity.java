@@ -41,8 +41,11 @@ public class MainActivity extends Activity {
 		textView = (TextView) findViewById(R.id.act1_textView1);
 		
 		pessoaAdapter = new PessoaAdapter(new ArrayList<Pessoa>(), getApplicationContext());
-		listView.setAdapter(pessoaAdapter);
+		pessoaAdapter.addOrReplaceItem(new Pessoa(0, "000-0000", "000-0000", "Leandro", "000.000.000-07", "leandro@leandro", 'M'));
+		pessoaAdapter.addOrReplaceItem(new Pessoa(1, "000-0000", "000-0000", "Bruna", "000.000.000-07", "bruna@bruna", 'F'));
 		
+		listView.setAdapter(pessoaAdapter);
+				
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -57,7 +60,7 @@ public class MainActivity extends Activity {
 			@Override
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					int position, long id) {
-					excluir();
+					excluir(pessoaAdapter.getItem(position));
 				return true;
 			}
 		});
@@ -69,6 +72,10 @@ public class MainActivity extends Activity {
 			}
 		});
 		
+		count();
+	}
+	
+	private void count() {
 		textView.setText("Contatos Apps, " + listView.getCount() + " encontrados");
 	}
 	
@@ -85,6 +92,7 @@ public class MainActivity extends Activity {
 				pessoaAdapter.addOrReplaceItem(pessoa);
 			}
 			listView.invalidateViews();
+			count();
 		} else if (resultCode == ResultCode.ERROR) {
 			
 		}
@@ -131,7 +139,7 @@ public class MainActivity extends Activity {
 		alerta.show();
 	}
 	
-	private void excluir() {
+	private void excluir(final Pessoa pessoa) {
 		AlertDialog.Builder builderExcluir = new AlertDialog.Builder(this);
 		builderExcluir.setTitle("Exclusão");
 		builderExcluir.setMessage("Deseja excluir");
@@ -149,11 +157,18 @@ public class MainActivity extends Activity {
 			
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				
+				pessoaAdapter.removeItem(pessoa);
+				listView.invalidateViews();
+				count();
 			}
 		});
 		
 		excluir = builderExcluir.create();
 		excluir.show();
+	}
+	
+	@Override
+	public void onBackPressed() {
+		close();
 	}
 }

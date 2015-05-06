@@ -37,6 +37,14 @@ public abstract class GenericListAdapter<T> extends BaseAdapter {
 		list.add(item);
 	}
 	
+	public void addItem(T item) {
+		list.add(item);
+	}
+	
+	public void removeItem(T item) {
+		list.remove(item);
+	}
+	
 	@Override
 	public int getCount() {
 		return list.size();

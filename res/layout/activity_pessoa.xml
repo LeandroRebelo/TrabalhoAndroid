@@ -113,7 +113,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="match_parent" >
 
             <RadioGroup
                 android:id="@+id/radioGroupSexo"
@@ -132,6 +132,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Feminino" />
+
             </RadioGroup>
 
         </LinearLayout>
@@ -149,6 +150,7 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_weight="0.47"
                 android:orientation="vertical" >
 
                 <TextView
@@ -160,10 +162,9 @@
 
                 <EditText
                     android:id="@+id/editTextTelFixo"
-                    android:layout_width="match_parent"
+                    android:layout_width="140dp"
                     android:layout_height="wrap_content"
                     android:inputType="phone|text" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -180,12 +181,10 @@
 
                 <EditText
                     android:id="@+id/editTextTelCel"
-                    android:layout_width="match_parent"
+                    android:layout_width="140dp"
                     android:layout_height="wrap_content"
                     android:inputType="phone" />
-
             </LinearLayout>
-
         </LinearLayout>
 
     </LinearLayout>
@@ -201,17 +200,17 @@
 
             <Button
                 android:id="@+id/buttonVoltar"
-                android:layout_width="38dp"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.15"
+                android:layout_weight="0.13"
                 android:onClick="cancelar"
                 android:text="Voltar" />
 
             <Button
                 android:id="@+id/buttonSalvar"
-                android:layout_width="wrap_content"
+                android:layout_width="40dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.15"
+                android:layout_weight="0.14"
                 android:minHeight="48dp"
                 android:minWidth="68dp"
                 android:onClick="salvar"
