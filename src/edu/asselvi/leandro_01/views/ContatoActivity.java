@@ -1,11 +1,8 @@
 package edu.asselvi.leandro_01.views;
 
 import java.util.ArrayList;
-import edu.asselvi.leandro_01.R;
-import edu.asselvi.leandro_01.component.ContatoAdapter;
-import edu.asselvi.leandro_01.enumm.ResultCode;
-import edu.asselvi.leandro_01.model.Contato;
-import edu.asselvi.leandro_01.model.Pessoa;
+import java.util.List;
+
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -19,6 +16,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import edu.asselvi.leandro_01.R;
+import edu.asselvi.leandro_01.component.ContatoAdapter;
+import edu.asselvi.leandro_01.enumm.ResultCode;
+import edu.asselvi.leandro_01.model.Contato;
+import edu.asselvi.leandro_01.model.Pessoa;
 
 public class ContatoActivity extends Activity {
 	
@@ -27,16 +29,20 @@ public class ContatoActivity extends Activity {
 	private Contato contatoSelecionado;
 	private View ultimoSelecionado;
 	private Pessoa pessoa;
+	
+	private static List<Integer> idsSalvos;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_contato);
 			
+		if (idsSalvos == null) {
+			idsSalvos = new ArrayList<Integer>();
+		}
 		pessoa = (Pessoa) getIntent().getSerializableExtra("pessoa");
 		listView = (ListView) findViewById(R.id.act3_listViewContato);
 		contatoAdapter = new ContatoAdapter(new ArrayList<Contato>(), getApplicationContext());
-		
 		
 		carregaContatos();
 		
@@ -46,12 +52,12 @@ public class ContatoActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				if (ultimoSelecionado == null) {
+					view.setBackgroundColor(Color.GRAY);
 					ultimoSelecionado = view;
-					ultimoSelecionado.setBackgroundColor(Color.GRAY);
 				} else if (ultimoSelecionado != view) {
 					ultimoSelecionado.setBackgroundColor(Color.TRANSPARENT);
+					view.setBackgroundColor(Color.GRAY);
 					ultimoSelecionado = view;
-					ultimoSelecionado.setBackgroundColor(Color.GRAY);
 				}
 				contatoSelecionado = contatoAdapter.getItem(position);
 			}
@@ -83,16 +89,32 @@ public class ContatoActivity extends Activity {
 				pessoa.setCpf(cpf);
 				pessoa.setSexo(sexo);
 			}
+			idsSalvos.add(id);
 			intent.putExtra("pessoa", pessoa);
 			
 		} catch (Exception e) {
 			setResult(ResultCode.ERROR);
 		}
+		finish();
 	}
 	
 	public void carregaContatos () {
 		ContentResolver contentResolver = getContentResolver();
-		Cursor cursor = contentResolver.query(Contacts.CONTENT_URI, null, null, null, null);
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append(Contacts._ID).append(" NOT IN (");
+		int index = 1;
+		for (Integer id : idsSalvos) {
+			if (idsSalvos.size() == index) {
+				sb.append(id);	
+			} else {
+				sb.append(id).append(", ");
+			}
+			index++;
+		}
+		sb.append(")");
+		
+		Cursor cursor = contentResolver.query(Contacts.CONTENT_URI, null, sb.toString(), null, null);
 		
 		while (cursor.moveToNext()) {
 			Contato contato = new Contato(null, null, null, null, null);
@@ -119,6 +141,7 @@ public class ContatoActivity extends Activity {
 					break;
 				}
 			}		
+			contatoAdapter.addOrReplaceItem(contato);					
 		}
 		cursor.close();
 	}

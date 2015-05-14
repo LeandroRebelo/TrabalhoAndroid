@@ -41,8 +41,8 @@ public class MainActivity extends Activity {
 		textView = (TextView) findViewById(R.id.act1_textView1);
 		
 		pessoaAdapter = new PessoaAdapter(new ArrayList<Pessoa>(), getApplicationContext());
-		pessoaAdapter.addOrReplaceItem(new Pessoa(0, "000-0000", "000-0000", "Leandro", "000.000.000-07", "leandro@leandro", 'M'));
-		pessoaAdapter.addOrReplaceItem(new Pessoa(1, "000-0000", "000-0000", "Bruna", "000.000.000-07", "bruna@bruna", 'F'));
+		pessoaAdapter.addOrReplaceItem(new Pessoa(100, "000-0000", "000-0000", "Leandro", "000.000.000-07", "leandro@leandro", 'M'));
+		pessoaAdapter.addOrReplaceItem(new Pessoa(101, "000-0000", "000-0000", "Bruna", "000.000.000-07", "bruna@bruna", 'F'));
 		
 		listView.setAdapter(pessoaAdapter);
 				
